@@ -1,0 +1,46 @@
+{
+  "claimId": "AGR-26-10482",
+  "dealerId": "RAD-JAI-002814",
+  "schemeId": "CSS-DEMO-SEED-2026",
+  "claimedAmountInr": 184260,
+  "invoice": {
+    "invoiceNumber": "INV-SB-8821",
+    "gstin": "08AACFS4821K1ZQ",
+    "structuredReference": "IRN-DEMO-8821",
+    "evidenceMode": "GST_STRUCTURED",
+    "integrationState": "SANDBOX"
+  },
+  "dealer": {
+    "licenceState": "VALID",
+    "bankProfileVersion": 7,
+    "bankProfileAgeDays": 214,
+    "sources": [
+      {"system": "RajKisan", "reference": "RK-LIC-DEMO-2814", "integrationState": "CONTRACT-READY"},
+      {"system": "IFMS 3.0", "reference": "IFMS-VENDOR-DEMO-2814", "integrationState": "CONTRACT-READY"}
+    ]
+  },
+  "evaluation": {
+    "ruleVersion": "3.4",
+    "decision": "READY_FOR_APPROVAL",
+    "checks": [
+      {"code": "DEALER_LICENCE_VALID", "outcome": "PASS"},
+      {"code": "GSTIN_MATCH", "outcome": "PASS"},
+      {"code": "INVOICE_UNIQUE", "outcome": "PASS"},
+      {"code": "SCHEME_ITEM_ELIGIBLE", "outcome": "PASS"},
+      {"code": "RATE_WITHIN_CEILING", "outcome": "PASS"},
+      {"code": "QUANTITY_WITHIN_SANCTION", "outcome": "PASS"},
+      {"code": "CLAIM_PERIOD_VALID", "outcome": "PASS"},
+      {"code": "BANK_PROFILE_VERIFIED", "outcome": "PASS"},
+      {"code": "DELIVERY_EVIDENCE_PRESENT", "outcome": "PASS"},
+      {"code": "DEDUCTION_RULES_APPLIED", "outcome": "PASS"},
+      {"code": "FUND_ROUTE_RESOLVED", "outcome": "PASS"},
+      {"code": "AUDIT_PACKET_COMPLETE", "outcome": "PASS"}
+    ]
+  },
+  "finance": {
+    "route": "IFMS_STATE",
+    "paymentStatus": "NOT_YET_ACKNOWLEDGED",
+    "truthBoundary": "No payment success exists until an authorised finance-system acknowledgement is received."
+  },
+  "prototypeNotice": "Deterministic evaluation fixture; no live Government credentials or production data."
+}
