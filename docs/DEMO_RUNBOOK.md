@@ -1,57 +1,102 @@
-# Evaluator Demo Runbook
+# RAJ-AGRIPAY Evaluator Demo Runbook
 
-Target: **3–4 minutes**.
+## Goal
 
-## 00:00–00:20 — Problem in one sentence
+Demonstrate in 3–4 minutes that RAJ-AGRIPAY solves the actual Agriculture payment-control problem rather than presenting another upload portal.
 
-Show Command Centre.
+## 0. Opening (10 seconds)
 
-> Today the payment is not one workflow: Agriculture licence, invoice evidence, scheme rules and Finance rails live across separate systems. RAJ-AGRIPAY makes that one traceable journey without replacing IFMS or PFMS.
+Let the launch splash establish **Government of Rajasthan · Department of Agriculture** context, then land on the blue/white Command Centre.
 
-## 00:20–00:45 — Dealer Passport
+Say: **“Rajasthan already has RajKisan and IFMS. We add the missing Agriculture-specific evidence, policy and reconciliation layer between a dealer claim and sovereign payment rails.”**
 
-Open **Dealers**. Point out RajKisan licence reference, IFMS vendor mapping, GSTIN, verified bank-profile version and renewal lifecycle.
+## 1. Command Centre — understand the gap (25 seconds)
 
-Key line: **We do not ask the same dealer to create another Government identity.**
+- Show claim value, exception value and controllable clean-claim validation metric.
+- Point out the Claim Truth Graph: Dealer → Invoice → Scheme → Delivery → Finance.
+- Open the claim queue.
+- Ask Dealer Saarthi: `AGR-26-10479 क्यों रुका है?`
+- Show that the response comes from actual evaluation state, not a generic FAQ.
 
-## 00:45–01:20 — Claim Truth Graph
+## 2. Rajasthan Map — operate statewide (25 seconds)
 
-Open **Claims → AGR-26-10482**. Show 12/12 checks and approve the evidence packet.
+- Open **Rajasthan Map**.
+- Point out that the UI uses a real Rajasthan geographic base and that all operating values remain visibly labelled evaluation data.
+- Select Jaipur, Jodhpur and Udaipur to show district dealer/claim/exception/SLA drill-down.
+- Explain production replacement with authorised Rajasthan GIS/master data and live departmental telemetry.
 
-Key line: **The system does not ask AI whether Government should pay. It assembles deterministic evidence and the authorised officer decides.**
+## 3. Claims — prove claim truth (70 seconds)
 
-## 01:20–01:45 — Exception intelligence
+### Clean claim
+Open `AGR-26-10482`.
 
-Open **AGR-26-10479**: bank account changed three days before payment.
+- Show 12/12 deterministic checks.
+- Show evidence references and finance route.
+- Click **Approve packet → Finance**.
+- Explain: this is a human Government approval action; AI never exercises expenditure authority.
+- Click **Simulate authorised acknowledgement** only after the claim is in Finance.
+- Show generated evaluation UTR.
+- Click **Auto-reconcile claim**.
 
-Open **AGR-26-10473**: duplicate IRN.
+### Payment Identity Lock
+Open `AGR-26-10479`.
 
-Key line: **Every stop has a reason code and an owner. No black-box fraud score.**
+- Show recent bank-profile-change exception.
+- Click **Complete demo re-verification**.
+- Explain versioned bank profile + maker-checker protection.
 
-## 01:45–02:10 — Scheme Rule Studio
+### Duplicate control
+Open `AGR-26-10481`.
 
-Open **Schemes**. Show effective-dated rules and finance route.
+- Show duplicate structured invoice reference.
+- Point out that Finance release remains blocked and the original evidence is retained for audit.
 
-Key line: **A new scheme is configuration plus approval, not another software project.**
+## 4. Dealers — avoid another master (20 seconds)
 
-## 02:10–02:35 — Finance and reconciliation
+- Show Unified Dealer Passport.
+- Explain RajKisan Agriculture licence truth + IFMS vendor/payee references.
+- Show Payment Identity Lock.
+- State explicitly: **“We federate identity; we do not create another generic IFMS vendor master.”**
 
-Open **Reconciliation**. Show Claim → IFMS packet → payment acknowledgement → UTR → reconciled.
+## 5. Scheme Rule Studio — low-code that matters (25 seconds)
 
-Key line: **IFMS/PFMS remain payment authority. RAJ-AGRIPAY maintains Agriculture's claim-to-UTR lineage.**
+- Open Schemes.
+- Show effective date, finance route and maker-checker path.
+- Click **Publish sandbox rule v3.5**.
+- Explain that old claims retain the old rule version; a new subsidy rate never rewrites history.
 
-## 02:35–02:55 — Integration truthfulness
+## 6. Reconciliation — close the loop (20 seconds)
 
-Open **Integrations**. Point to SANDBOX / CONTRACT-READY labels.
+- Show claim → evidence → approval → acknowledgement → UTR → reconciliation.
+- Contrast reconciled payment with the bank-rejection exception model.
+- State: **“Book closure becomes exception management, not manual archaeology.”**
 
-Key line: **We never call a mock response a live Government API.**
+## 7. Integrations — prove implementation maturity (25 seconds)
 
-## 02:55–03:20 — BHASHINI + SUTRA
+- Show sovereign rail: RajKisan → RAJ-AGRIPAY → Raj Sewa Dwaar → IFMS/PFMS → UTR/reconciliation.
+- Point out every truth label: `SANDBOX`, `CONTRACT-READY`, `ADAPTER-READY`, `PROTOTYPE-PROVEN`.
+- Explain that production credentials/legal basis/allowlisting are explicit dependencies.
 
-On Command Centre, ask Dealer Saarthi about `AGR-26-10479`, then open **SUTRA Edge**.
+## 8. SUTRA Dealer Edge — last mile without overengineering (30 seconds)
 
-Key line: **Dealers normally use web/PWA. SUTRA is an optional assisted edge channel for offices, camps and low-connectivity cases—not a statewide hardware dependency.**
+- Open SUTRA Edge.
+- Click **Scan demo evidence**.
+- Show local evidence-quality state and sealed offline packet.
+- Explain BHASHINI-ready Hindi voice guidance and camera capture.
+- Click **Simulate connectivity + sync**.
+- Emphasise the hard boundary: **no offline payment approval, no invented settlement status.**
 
-## 03:20–03:40 — Close
+## Close (10 seconds)
 
-> RAJ-AGRIPAY is the missing Agriculture control plane above Rajasthan's existing digital and financial infrastructure: less manual verification, faster clean claims, explainable exceptions and one audit trail from dealer to settlement.
+**“RAJ-AGRIPAY does not ask Rajasthan to replace the rails it already funded. It makes Agriculture dealer claims verifiable before Finance, transparent while they move, and reconcilable after money moves.”**
+
+## Truth labels to preserve during recording
+
+- `Evaluation Sandbox`
+- `Prototype data · no live Government credentials`
+- GST = `SANDBOX`
+- RajKisan / SSO / Raj Sewa Dwaar / IFMS / PFMS = `CONTRACT-READY`
+- BHASHINI = `ADAPTER-READY`
+- SUTRA-ID Edge = `PROTOTYPE-PROVEN`
+
+Never crop or hide these labels in the submission video.
