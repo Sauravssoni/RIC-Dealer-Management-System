@@ -1,0 +1,233 @@
+openapi: 3.1.0
+info:
+  title: RAJ-AGRIPAY Agriculture Claim Orchestration API
+  version: 0.2.0-evaluation
+  description: >-
+    Contract-first interface for dealer lifecycle references, Agriculture claim truth,
+    governed approval handoff and claim-to-UTR reconciliation. This specification does
+    not imply live Government credentials or production access.
+servers:
+  - url: https://sandbox.example.invalid/raj-agripay/v1
+    description: Evaluation contract only
+security:
+  - bearerAuth: []
+paths:
+  /dealers/{dealerId}:
+    get:
+      summary: Retrieve federated Dealer Passport
+      operationId: getDealerPassport
+      parameters:
+        - $ref: '#/components/parameters/DealerId'
+      responses:
+        '200':
+          description: Dealer Passport with source provenance
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/DealerPassport' }
+  /claims:
+    post:
+      summary: Create Agriculture claim packet
+      operationId: createClaim
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ClaimCreate' }
+      responses:
+        '201':
+          description: Claim created
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Claim' }
+  /claims/{claimId}/evaluate:
+    post:
+      summary: Run deterministic Claim Truth Graph checks
+      operationId: evaluateClaim
+      parameters:
+        - $ref: '#/components/parameters/ClaimId'
+      responses:
+        '200':
+          description: Reproducible evaluation result
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/EvaluationResult' }
+  /claims/{claimId}/approve:
+    post:
+      summary: Record authorised human approval of a clean evidence packet
+      operationId: approveClaim
+      parameters:
+        - $ref: '#/components/parameters/ClaimId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [approverId, evidencePacketHash, ruleVersion]
+              properties:
+                approverId: { type: string }
+                evidencePacketHash: { type: string }
+                ruleVersion: { type: string }
+      responses:
+        '200':
+          description: Approval receipt; does not represent payment success
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ApprovalReceipt' }
+        '409': { description: Claim has unresolved policy exception }
+  /claims/{claimId}/finance-handoff:
+    post:
+      summary: Seal finance-ready packet for authorised Government rail
+      operationId: createFinanceHandoff
+      parameters:
+        - $ref: '#/components/parameters/ClaimId'
+      responses:
+        '200':
+          description: Handoff packet with explicit route and readiness state
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/FinanceHandoff' }
+  /claims/{claimId}/payment-acknowledgements:
+    post:
+      summary: Record authoritative external payment acknowledgement
+      description: >-
+        Production use accepts only acknowledgements from an authorised configured
+        Government/finance integration. The evaluation UI simulates this event explicitly.
+      operationId: recordPaymentAcknowledgement
+      parameters:
+        - $ref: '#/components/parameters/ClaimId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/PaymentAcknowledgement' }
+      responses:
+        '200': { description: Acknowledgement recorded }
+  /reconciliation/{claimId}:
+    post:
+      summary: Reconcile approved claim against acknowledgement and UTR
+      operationId: reconcileClaim
+      parameters:
+        - $ref: '#/components/parameters/ClaimId'
+      responses:
+        '200':
+          description: Reconciliation result
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ReconciliationResult' }
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+  parameters:
+    DealerId:
+      name: dealerId
+      in: path
+      required: true
+      schema: { type: string }
+    ClaimId:
+      name: claimId
+      in: path
+      required: true
+      schema: { type: string }
+  schemas:
+    SourceReference:
+      type: object
+      required: [system, reference, integrationState]
+      properties:
+        system: { type: string }
+        reference: { type: string }
+        observedAt: { type: string, format: date-time }
+        integrationState:
+          type: string
+          enum: [LIVE, SANDBOX, CONTRACT-READY, ADAPTER-READY, PROTOTYPE-PROVEN, SIMULATED]
+    DealerPassport:
+      type: object
+      required: [dealerId, displayName, sources]
+      properties:
+        dealerId: { type: string }
+        displayName: { type: string }
+        district: { type: string }
+        licenceState: { type: string }
+        gstin: { type: string }
+        bankProfileVersion: { type: string }
+        sources:
+          type: array
+          items: { $ref: '#/components/schemas/SourceReference' }
+    ClaimCreate:
+      type: object
+      required: [dealerId, schemeId, invoiceReference, claimedAmount]
+      properties:
+        dealerId: { type: string }
+        schemeId: { type: string }
+        invoiceReference: { type: string }
+        claimedAmount: { type: number, minimum: 0 }
+        evidenceReferences:
+          type: array
+          items: { type: string }
+    Claim:
+      allOf:
+        - $ref: '#/components/schemas/ClaimCreate'
+        - type: object
+          required: [claimId, state]
+          properties:
+            claimId: { type: string }
+            state:
+              type: string
+              enum: [DRAFT, EVALUATING, EXCEPTION, READY_FOR_APPROVAL, APPROVED, IN_FINANCE, PAID, RECONCILED]
+    CheckResult:
+      type: object
+      required: [code, outcome, provenance]
+      properties:
+        code: { type: string }
+        outcome: { type: string, enum: [PASS, EXCEPTION, BLOCK] }
+        reason: { type: string }
+        provenance:
+          type: array
+          items: { $ref: '#/components/schemas/SourceReference' }
+    EvaluationResult:
+      type: object
+      required: [claimId, ruleVersion, checks, decision]
+      properties:
+        claimId: { type: string }
+        ruleVersion: { type: string }
+        checks:
+          type: array
+          items: { $ref: '#/components/schemas/CheckResult' }
+        decision: { type: string, enum: [READY_FOR_APPROVAL, EXCEPTION, BLOCK] }
+    ApprovalReceipt:
+      type: object
+      properties:
+        claimId: { type: string }
+        approvalId: { type: string }
+        approverId: { type: string }
+        evidencePacketHash: { type: string }
+        ruleVersion: { type: string }
+        approvedAt: { type: string, format: date-time }
+    FinanceHandoff:
+      type: object
+      properties:
+        claimId: { type: string }
+        route: { type: string, enum: [IFMS_STATE, IFMS_SNA_SPARSH_PFMS] }
+        packetHash: { type: string }
+        integrationState: { type: string }
+    PaymentAcknowledgement:
+      type: object
+      required: [sourceSystem, sourceReference, status]
+      properties:
+        sourceSystem: { type: string }
+        sourceReference: { type: string }
+        status: { type: string, enum: [ACCEPTED, PAID, REJECTED, RETURNED] }
+        utr: { type: string }
+        amount: { type: number }
+        observedAt: { type: string, format: date-time }
+    ReconciliationResult:
+      type: object
+      properties:
+        claimId: { type: string }
+        claimedAmount: { type: number }
+        approvedAmount: { type: number }
+        paidAmount: { type: number }
+        utr: { type: string }
+        status: { type: string, enum: [RECONCILED, EXCEPTION] }
