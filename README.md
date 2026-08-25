@@ -35,7 +35,7 @@ The winning-release branch contains a blue/white Rajasthan Government operations
 ### Eight evaluator views
 
 1. **Command Centre** — operational overview, controllable-delay metrics, claim queue, Dealer Saarthi and Claim Truth Graph.
-2. **Rajasthan Map** — selectable district-centroid operations intelligence for dealer volume, claims, exceptions and clean-claim validation SLA.
+2. **Rajasthan Map** — real Rajasthan base geography with selectable district-centroid operating overlays for dealer volume, claims, exceptions and clean-claim validation SLA.
 3. **Claims** — evidence packets, deterministic checks, exception ownership and governed state transitions.
 4. **Dealers** — Unified Dealer Passport, lifecycle context and Payment Identity Lock.
 5. **Schemes** — effective-dated, low-code Scheme Rule Studio with maker-checker governance.
@@ -110,6 +110,8 @@ Every bill is evaluated as five evidence domains rather than as “an OCR result
 
 Decision outcomes are explainable `PASS`, `EXCEPTION` or `BLOCK` with reason codes and evidence provenance.
 
+Contract-level examples are included in [`openapi/raj-agripay.yaml`](openapi/raj-agripay.yaml) and [`schemas/claim-truth-packet.example.json`](schemas/claim-truth-packet.example.json).
+
 ---
 
 ## Structured evidence before OCR
@@ -137,15 +139,15 @@ Rule packs can express:
 - approval thresholds;
 - reconciliation requirements.
 
-Every published version is effective-dated and auditable so historical claims can replay against the exact rules that applied when they were submitted.
+Every published version is effective-dated and auditable so historical claims can replay against the exact rules that applied when they were submitted. A concrete governed configuration example is included at [`schemas/scheme-pack.example.json`](schemas/scheme-pack.example.json).
 
 ---
 
 ## Rajasthan operations map
 
-The current map uses deterministic evaluation data and district-centroid latitude/longitude for spatial orientation. It **does not claim live RajKisan statistics or official district-boundary accuracy**.
+The release uses a **real Rajasthan geographic base map** with district-boundary context, overlaid with deterministic evaluation district-centroid data. The base-map revision used by the UI is dated **27 August 2025** and is attributed in-product to Wikimedia Commons under CC BY-SA 3.0.
 
-The production design can replace this layer with authorised Rajasthan GIS/master data and live district/claim telemetry after departmental integration approval.
+Operational values remain clearly marked **evaluation data**. The prototype **does not claim live RajKisan district statistics**. Production deployment would source authorised Rajasthan GIS/master data and live departmental telemetry through approved interfaces.
 
 ---
 
@@ -235,16 +237,20 @@ Runtime target: **Node.js 22+**.
 
 ---
 
-## Research & submission pack
+## Research, contract & submission pack
 
-- [`docs/RESEARCH_EVIDENCE.md`](docs/RESEARCH_EVIDENCE.md) — current Rajasthan/national infrastructure findings and their architecture consequences.
+- [`docs/RESEARCH_EVIDENCE.md`](docs/RESEARCH_EVIDENCE.md) — current Rajasthan/national infrastructure findings and architecture consequences.
 - [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) — control-plane, evidence and state-machine design.
 - [`docs/INTEGRATION_MATRIX.md`](docs/INTEGRATION_MATRIX.md) — explicit external-system readiness boundaries.
 - [`docs/SECURITY_GOVERNANCE.md`](docs/SECURITY_GOVERNANCE.md) — finance-grade controls and responsible-AI boundaries.
 - [`docs/90_DAY_PILOT.md`](docs/90_DAY_PILOT.md) — implementation gates, KPIs and rollout logic.
 - [`docs/DEMO_RUNBOOK.md`](docs/DEMO_RUNBOOK.md) — evaluator demonstration sequence.
+- [`docs/EVALUATOR_SCORECARD.md`](docs/EVALUATOR_SCORECARD.md) — challenge-to-proof matrix and red-team submission gates.
 - [`docs/SUBMISSION_FORM_ANSWERS.md`](docs/SUBMISSION_FORM_ANSWERS.md) — concise portal-ready application responses.
 - [`docs/FINAL_RELEASE_CHECKLIST.md`](docs/FINAL_RELEASE_CHECKLIST.md) — demo, engineering, truthfulness and submission gates.
+- [`openapi/raj-agripay.yaml`](openapi/raj-agripay.yaml) — contract-first orchestration API.
+- [`schemas/scheme-pack.example.json`](schemas/scheme-pack.example.json) — governed low-code rule-pack example.
+- [`schemas/claim-truth-packet.example.json`](schemas/claim-truth-packet.example.json) — reproducible evidence packet example.
 
 ---
 
