@@ -1,0 +1,39 @@
+{
+  "schemeId": "CSS-DEMO-SEED-2026",
+  "name": "Certified Seed Support",
+  "version": "3.4",
+  "effectiveFrom": "2026-09-01",
+  "effectiveTo": null,
+  "fundingRoute": "IFMS_STATE",
+  "governance": {
+    "approvalPath": ["MAKER", "CHECKER", "APPROVER"],
+    "historicalReplay": true,
+    "ruleChangeRequiresApproval": true
+  },
+  "eligibility": {
+    "dealerClasses": ["SEED", "MULTI_INPUT"],
+    "requiredLicenceTypes": ["SEED_RETAIL"],
+    "licenceMustBeValidOnTransactionDate": true
+  },
+  "invoice": {
+    "structuredEvidencePreferred": true,
+    "acceptedStructuredReferences": ["GST_IRN", "GST_QR"],
+    "ocrFallback": true,
+    "duplicateKey": ["GSTIN", "IRN", "INVOICE_NUMBER"]
+  },
+  "financial": {
+    "rateCeilingInr": 30000,
+    "quantityMustBeWithinSanction": true,
+    "deductionRulesVersion": "TDS-2026-01"
+  },
+  "paymentIdentity": {
+    "bankProfileMustBeVerified": true,
+    "recentBankChangeReviewDays": 7,
+    "recentBankChangeRequiresMakerChecker": true
+  },
+  "reconciliation": {
+    "requiresAuthoritativeAcknowledgement": true,
+    "requiresUtrForPaidState": true,
+    "autoCloseWhenAmountsMatch": true
+  }
+}
