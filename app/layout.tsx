@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "./map-enhancements.css";
 
 export const metadata: Metadata = {
   title: "RAJ-AGRIPAY | Rajasthan Agriculture Dealer Control Plane",
