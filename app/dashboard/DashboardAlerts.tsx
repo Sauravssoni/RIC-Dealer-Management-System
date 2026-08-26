@@ -1,10 +1,14 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 
 export default function DashboardAlerts(){
   const [open,setOpen]=useState(false);
   return <>
+    <Link className="opsVisionButton" href="/vision" aria-label="Open statewide vision and scale plan">
+      <span>Statewide Vision</span><b>2030</b>
+    </Link>
     <button className="opsAlertButton" onClick={()=>setOpen(v=>!v)} aria-expanded={open} aria-controls="dealer-notification-drawer">
       <span>Notifications</span><b>3</b>
     </button>
