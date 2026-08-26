@@ -1,262 +1,285 @@
 # RAJ-AGRIPAY
 
-## Rajasthan Integrated Dealer Lifecycle, Claim & Settlement Fabric
+### Rajasthan Integrated Dealer Lifecycle, Claim & Settlement Fabric
 
 > **One Dealer. One Claim. One Ledger. One Settlement Journey.**
 
-RAJ-AGRIPAY is an evaluation-grade, research-backed prototype for Rajasthan's **Integrated Dealer Management System** challenge for fertilizer, seed and input dealers.
-
-It is deliberately designed as an **Agriculture-specific claim-to-settlement control plane**, not another generic vendor portal and not a parallel payment gateway.
-
-## Open the product
-
-The default route redirects to the officer-grade operations console:
-
-```text
-/ → /dashboard
-```
-
-Critical functional journeys:
-
-- `/dashboard` — Agriculture Finance Operations console.
-- `/onboarding` — dealer onboarding and renewal → Dealer Passport.
-- `/intake` — structured e-Invoice / OCR fallback → Claim Truth Packet.
-- `/impact` — editable TAT, working-capital and administrative-value model.
-- `/api/health` — evaluation-service health endpoint.
-
-The dashboard is intentionally **not a pitch page**. It opens directly into work queues, SLAs, exceptions, district MIS, claims, scheme controls, authoritative-system readiness and assisted-service operations.
+**Challenge:** Integrated Dealer Management System - Dealers' Billing, Payments, Onboarding & Renewals  
+**Applicant:** Syntheon Tech Private Limited · Jaipur, Rajasthan  
+**iStart Registration:** `3B9D9E48` · **CIN:** `U63120RJ2025PTC100649` · **DPIIT:** `DIPP213187`  
+**Repository:** https://github.com/Sauravssoni/RIC-Dealer-Management-System
 
 ---
 
-## Why this architecture is different
+## Start here - this is an operations product, not a pitch page
 
-Rajasthan is not starting from zero. **IFMS 3.0 already includes generic vendor registration, vendor profiles, invoice upload/tracking, payment tracking and work-order functionality.** Rajasthan Finance has also moved FVC bill processing into IFMS 3.0 with vendor registration, e-invoice/non-e-invoice handling, IMS/SRN linkage where applicable, invoice-PDF upload and AI-assisted amount checking.
+The base evaluator experience opens into **Agriculture Finance Operations**: work queues, scheme controls, dealer lifecycle, exception ownership, payment-state transitions, reconciliation, district MIS and Rajasthan-native integration readiness.
 
-Therefore RAJ-AGRIPAY adds the missing Agriculture intelligence around those sovereign systems:
+| Evaluator journey | Route / surface | What it proves |
+|---|---|---|
+| Officer operations | `/dashboard` | claim queue, SLA, exception ownership, district MIS, finance handoff, UTR/reconciliation |
+| Dealer onboarding / renewal | `/onboarding` | e-KYC boundary, RajKisan licence context, IFMS payee mapping, Dealer Passport, Payment Identity Lock |
+| Invoice -> Claim Truth | `/intake` | IRN/QR-first extraction, OCR fallback, confidence/human review, deterministic PASS / EXCEPTION / BLOCK |
+| Impact & Payback Lab | `/impact` | editable TAT, working-capital and administrative-value scenario model |
+| Dealer notifications | dashboard notification control | portal / SMS examples designed for e-Sanchar 3.0; never fake a payment-success event |
+| SUTRA Dealer Edge | dashboard / SUTRA | camera + multilingual assisted capture, offline queue, signed receipt, authorised sync; no offline expenditure approval |
 
-- **RajKisan** remains authoritative for Agriculture dealer licence/lifecycle context.
-- **IFMS 3.0** remains authoritative for generic vendor/payee, Treasury and State financial processing.
-- **PFMS / SNA-SPARSH / RBI e-Kuber** remain authoritative rails for applicable centrally sponsored scheme payments.
-- **Raj Sewa Dwaar** remains Rajasthan's intended API/ESB integration path.
-- **Raj eSign** is the contract-ready Rajasthan-native officer signing rail.
-- **e-Sanchar 3.0 / Push SMS** is the contract-ready Rajasthan-native dealer-notification rail.
-- **RAJ-AGRIPAY** compiles scheme-specific Agriculture evidence into a reproducible claim packet, manages exceptions, prepares finance handoff metadata and preserves claim-to-UTR reconciliation lineage.
+**Evaluation data is synthetic/deterministic. External Government APIs are never silently represented as LIVE.**
 
-### Product thesis
+---
+
+# Why the obvious solution is the wrong solution
+
+Rajasthan is **not** starting from zero. IFMS 3.0 already owns generic vendor/payee and State finance functions. RajKisan already owns Agriculture dealer/licence workflows. PFMS/SNA-SPARSH, Treasury/RBI/banks and GST infrastructure remain sovereign systems of record.
+
+A winning solution therefore should not build another vendor database, another wallet or another generic OCR portal.
+
+**RAJ-AGRIPAY is the Agriculture-specific control plane between operational evidence and sovereign finance rails.**
+
+```mermaid
+flowchart LR
+    RK[RajKisan\nDealer / licence truth] --> AG[RAJ-AGRIPAY\nAgriculture claim truth]
+    GST[GST e-Invoice / OCR evidence] --> AG
+    RULE[Versioned Scheme Pack] --> AG
+    DEL[Delivery / beneficiary evidence] --> AG
+    AG --> RSD[Raj Sewa Dwaar\nApproved integration path]
+    RSD --> IFMS[IFMS 3.0]
+    IFMS --> PFMS[PFMS / SNA-SPARSH\nwhere applicable]
+    IFMS --> BANK[RBI / Bank rails]
+    PFMS --> BANK
+    BANK --> REC[Claim -> acknowledgement -> UTR -> reconciliation]
+    REC --> AG
+```
+
+### The sentence to remember
 
 > **IFMS moves public money. RAJ-AGRIPAY proves why an Agriculture dealer claim is ready to move, routes it correctly, and closes the evidence loop after it moves.**
 
 ---
 
-## Officer operations console
+# Official problem -> clickable proof
 
-`/dashboard` is a dense Government operations UI with seven working areas:
-
-1. **Operations** — five operational KPIs, departmental claim queue, SLA health, exception control, district MIS and finance-rail readiness.
-2. **Claims & Payments** — searchable ledger, evidence packet inspector, reason-coded exceptions and governed transitions from approval → finance → acknowledgement → UTR → reconciliation.
-3. **District MIS** — self-contained Rajasthan operational silhouette with selectable district-centroid overlays for dealer load, claims, exceptions and clean-validation latency. It is explicitly labelled as evaluation orientation, not cadastral/live Government GIS.
-4. **Dealer Registry** — federated Dealer Passport view, licence/payment-profile context and Payment Identity Lock signals.
-5. **Scheme Controls** — effective-dated low-code Scheme Packs with maker-checker publication and historical replay.
-6. **Integrations** — explicit `SANDBOX`, `CONTRACT-READY`, `ADAPTER-READY` and `PROTOTYPE-PROVEN` boundaries across Rajasthan/national rails.
-7. **SUTRA Edge** — optional assisted/offline evidence capture with a hard Government-authority boundary.
-
-### Dashboard interaction proof
-
-The console is stateful rather than decorative:
-
-- open any claim and inspect its evidence packet;
-- resolve a recent bank-profile change through the demo maker-checker path;
-- approve a clean packet to Finance;
-- simulate a visibly labelled authoritative acknowledgement;
-- generate a demo UTR and reconcile the claim;
-- filter/search the ledger;
-- select district workload on the map;
-- publish a sandbox Scheme Pack version;
-- run a short guided claim → Finance → reconciliation → MIS → integration → SUTRA walkthrough;
-- reset to a deterministic release baseline.
+| Official challenge requirement | RAJ-AGRIPAY response |
+|---|---|
+| T+15-T+30 settlement delay | straight-through clean-claim validation + owned exception queues + measurable Agriculture-side SLA |
+| Fragmented scheme-wise systems | one federated Dealer Passport + canonical claim packet + cross-scheme ledger |
+| Manual invoice verification | structured GST evidence first; OCR fallback only where needed |
+| No digitised invoice-to-payment workflow | claim state machine from intake -> rule checks -> authorised approval -> finance -> acknowledgement -> UTR -> reconciliation |
+| No real-time MIS | officer command centre + district operations + ageing / exception intelligence |
+| Limited dealer transparency | grounded claim timeline + SMS/portal actions + Dealer Saarthi pattern |
+| Reconciliation mismatch | claim-to-UTR lineage + reason-coded breaks + auto-reconciliation for eligible payments |
+| e-KYC / Aadhaar-linked onboarding | authorised online route or compliant signed/offline verification; minimum-retention identity design |
+| Renewals | versioned Dealer Passport lifecycle and licence-expiry workflow |
+| Rule-based approvals | effective-dated Scheme Packs + deterministic Claim Truth Graph + maker-checker governance |
+| PFMS / GST-linked settlement | contract-ready Finance handoff; IFMS/PFMS/Treasury remain authoritative |
+| Low-cost / rapid scheme onboarding | reusable identity, evidence, workflow, notification, finance and reconciliation primitives; new scheme = governed configuration |
 
 ---
 
-## Full official-challenge lifecycle
+# Product architecture
 
-```text
-Dealer onboarding / renewal
-          ↓
-Unified Dealer Passport
-          ↓
-Structured invoice / OCR fallback
-          ↓
-Claim Truth Graph
-          ↓
-PASS / EXCEPTION / BLOCK
-          ↓
-Human Government approval
-          ↓
-Raj eSign-ready approval receipt
-          ↓
-Finance handoff
-          ↓
-IFMS / PFMS / SNA-SPARSH as applicable
-          ↓
-Authoritative acknowledgement
-          ↓
-UTR / payment reference
-          ↓
-Automatic reconciliation
-          ↓
-e-Sanchar / portal status to dealer
+## 1. Dealer Passport
+
+A reusable Agriculture dealer identity layer referencing source-owned records rather than creating another generic vendor master.
+
+- RajKisan licence / lifecycle reference
+- SSO / approved e-KYC reference
+- GSTIN / legal-name context
+- IFMS payee mapping
+- scheme memberships
+- renewal / expiry state
+- versioned bank-payment profile
+- **Payment Identity Lock** for last-minute bank changes
+
+## 2. Invoice Intelligence
+
+> **Do not OCR what Government already made machine-readable.**
+
+```mermaid
+flowchart TD
+    INV[Invoice / evidence] --> Q{Structured IRN / QR available?}
+    Q -- Yes --> STRUCT[Structured extraction + authorised validation]
+    Q -- No --> OCR[OCR / CV fallback]
+    OCR --> CONF{Confidence >= threshold?}
+    CONF -- No --> HUMAN[Mandatory human confirmation]
+    CONF -- Yes --> PACKET[Normalised claim packet]
+    HUMAN --> PACKET
+    STRUCT --> PACKET
 ```
 
-No AI model, SUTRA device or RAJ-AGRIPAY service exercises Government expenditure authority.
+## 3. Claim Truth Graph
+
+Every claim is evaluated as linked evidence domains instead of a black-box score.
+
+```mermaid
+flowchart TB
+    D[Dealer\nlicence · GST · bank · jurisdiction] --> C[CLAIM TRUTH]
+    I[Invoice\nIRN · amount · tax · duplicate key] --> C
+    S[Scheme\neligibility · rate · quantity · period] --> C
+    E[Delivery\nreceipt · beneficiary · inspection] --> C
+    F[Finance\nroute · approval · acknowledgement · UTR] --> C
+    C --> P[PASS]
+    C --> X[EXCEPTION]
+    C --> B[BLOCK]
+```
+
+Every non-pass has a reproducible reason code, owner and next action.
+
+## 4. Scheme Rule Studio
+
+New schemes should not require another application project.
+
+`Draft -> automated test pack -> Maker -> Checker -> Effective date -> signed / hashed version`
+
+Historical claims replay against the exact policy version that applied at transaction time.
+
+## 5. Rajasthan-native rails
+
+| Rail | Role | Evaluator state |
+|---|---|---|
+| RajKisan | Agriculture dealer / licence truth | `CONTRACT-READY` |
+| Rajasthan SSO | dealer / officer identity | `CONTRACT-READY` |
+| Raj Sewa Dwaar | approved State integration gateway | `CONTRACT-READY` |
+| IFMS 3.0 | vendor/payee + financial processing | `CONTRACT-READY` |
+| PFMS / SNA-SPARSH | applicable CSS route | `CONTRACT-READY` |
+| GST e-Invoice / IRP | structured invoice evidence | `SANDBOX` |
+| Raj eSign | authorised approval-signing path | `CONTRACT-READY` |
+| e-Sanchar 3.0 | dealer notifications / Push SMS | `CONTRACT-READY` |
+| BHASHINI | Hindi / regional ASR-TTS-translation | `ADAPTER-READY` |
+| SUTRA-ID Edge | optional assisted offline evidence capture | `PROTOTYPE-PROVEN` |
+
+**LIVE** is reserved for an authoritative production connector that is actually connected, verified and monitored.
 
 ---
 
-## Dealer onboarding / renewal
+# Statewide operations - not a decorative map
 
-`/onboarding` demonstrates:
+The district view is an **operational workload surface**: dealer coverage, claims, exceptions, represented value, validation TAT and action priority. Evaluator values are synthetic; production replaces them with authorised Rajasthan district/GIS master data and live claim telemetry.
 
-- SSO / authorised e-KYC boundary;
-- RajKisan licence-context resolution;
-- GST / legal-firm matching;
-- IFMS payee-reference mapping;
-- Payment Identity Lock for bank changes;
-- scheme-access evaluation;
-- versioned Dealer Passport receipt;
-- audit-event replay.
+The purpose of the map is not cartography. It answers a Finance/Scheme officer's question:
 
-The system federates source-owned records instead of creating another vendor master.
+> **Where is money getting stuck, for which dealer/scheme, why, who owns the exception, and what action will clear it?**
 
 ---
 
-## Invoice intelligence
+# SUTRA-ID Edge - an asymmetric last-mile advantage
 
-`/intake` follows a simple rule:
+SUTRA is **optional**; the system remains web/PWA-first for dealers.
 
-> **Do not OCR what Government has already made machine-readable.**
+Where district offices, camps or low-connectivity contexts need assistance, SUTRA can provide:
 
-Structured GST e-Invoice / IRN / QR evidence is preferred when authorised. OCR is the fallback for legacy scans and supporting documents, with field-level provenance, confidence and human-review thresholds.
+`camera evidence -> Hindi/BHASHINI-ready guidance -> local quality checks -> human confirmation -> encrypted/idempotent queue -> signed receipt -> authorised sync`
 
-The red-team fixture deliberately triggers `DUPLICATE_INVOICE_REFERENCE` and returns a deterministic `BLOCK` rather than an unexplained AI fraud score.
+### Hard authority boundary
+
+- SUTRA **never** approves Government expenditure offline.
+- AI **never** manufactures a payment acknowledgement.
+- Government financial state changes only after source-backed authorised events.
 
 ---
 
-## Claim Truth Graph
+# Vision - from Dealer Payments to a Rajasthan Agriculture Payment Evidence Fabric
 
-Every bill is evaluated across evidence domains:
+The proposal remains laser-focused on the dealer-payment challenge. The architecture, however, is deliberately reusable.
 
-| Domain | Typical evidence |
+```mermaid
+flowchart LR
+    P1[PHASE 1\nDealer lifecycle + claim-to-settlement] --> P2[PHASE 2\nAgriculture Payment Evidence Fabric]
+    P2 --> P3[PHASE 3\nFarmGraph AI interoperability]
+    P3 --> OUT[Input-demand forecasting\naccess deserts\nscheme planning\nextension targeting]
+```
+
+### FarmGraph AI interoperability - future, not a current claim
+
+A future consented signal layer can combine dealer-claim/payment events with authorised crop calendars, satellite/geospatial, weather, soil, farm/IoT and drone evidence to support:
+
+- input-demand forecasting by crop cycle and district;
+- dealer-network access-gap detection;
+- scheme utilisation vs agronomic need;
+- early procurement / distribution planning;
+- extension-worker and camp targeting;
+- farm-to-market / evidence-chain integration where authorised.
+
+This is intentionally framed as **future interoperability**. RAJ-AGRIPAY does not claim live FarmGraph, satellite or farm-registry integrations in the evaluator release.
+
+---
+
+# 90-day Government pilot
+
+| Window | Gate |
 |---|---|
-| Dealer | licence validity, GSTIN, jurisdiction, bank-profile version |
-| Invoice | IRN/QR where available, OCR fallback, amount/tax, duplicate keys |
-| Scheme | eligible item, rate ceiling, quantity, period, sanction, rule version |
-| Delivery | beneficiary/order/receipt/inspection evidence where applicable |
-| Finance | approval, fund route, acknowledgement, deductions, UTR, reconciliation |
+| Day 0-10 | AS-IS mapping, dealer/scheme inventory, interface register, baseline TAT/reconciliation effort |
+| Day 10-25 | Dealer Passport, licence/payee references, structured invoice + OCR fallback |
+| Day 25-45 | Scheme Packs, Claim Truth, duplicate/rate/quantity controls, exception workbench |
+| Day 45-60 | State/CSS route resolver, IFMS/PFMS contract adapters, acknowledgement state machine, notifications |
+| Day 60-75 | reconciliation, district MIS, Dealer Saarthi, optional SUTRA workflow |
+| Day 75-90 | UAT, security/accessibility, migration/cutover, SOPs, training, handover and statewide blueprint |
 
-Decision outcomes are explainable `PASS`, `EXCEPTION` or `BLOCK` with reason codes and provenance.
+### Pilot targets - proposals, not fabricated achieved results
 
-Contract examples:
+- `<4h` median clean-claim departmental validation
+- `<=T+2 working days` clean claim to departmental approval
+- `100%` exact-key duplicate detection
+- `100%` claim/payment lineage coverage
+- `>=90%` eligible auto-reconciliation where authoritative references exist
+- `<30 sec` audit-packet retrieval
+- `0` synthetic external status represented as authoritative
 
-- [`openapi/raj-agripay.yaml`](openapi/raj-agripay.yaml)
-- [`schemas/claim-truth-packet.example.json`](schemas/claim-truth-packet.example.json)
-- [`schemas/scheme-pack.example.json`](schemas/scheme-pack.example.json)
+External Treasury/PFMS/bank settlement time is reported separately because RAJ-AGRIPAY does not unilaterally control it.
 
----
-
-## Low-code Scheme Packs
-
-“Low-code” means Rajasthan can onboard or amend schemes as governed configuration rather than commissioning another application.
-
-Rule packs express dealer class/licence requirements, invoice evidence, rate/quantity ceilings, scheme periods, delivery evidence, sanction/fund-route metadata, approval controls and reconciliation rules. Every version is effective-dated and auditable so historical claims replay against the rules that actually applied.
-
----
-
-## Impact & Payback Lab
-
-`/impact` converts the challenge's T+15–T+30 problem into transparent, editable scenario mathematics:
-
-- monthly dealer claim value;
-- monthly claim count;
-- current vs target departmental TAT;
-- dealer cost of capital;
-- minutes of administrative handling avoided;
-- baseline vs target manual-review rate.
-
-Outputs are **scenario values, not Rajasthan actuals**. During a pilot, the same model is intended to use measured event timestamps and Finance-approved baselines.
+**Indicative 90-day implementation ask: INR 44.8 lakh**, subject to confirmed interfaces, State hosting/security requirements and taxes.
 
 ---
 
-## BHASHINI + SUTRA-ID Edge
+# Brownfield deployment & Government handover
 
-Dealers are businesses, so the primary channel remains web/PWA. SUTRA is intentionally optional for district offices, camps and low-connectivity assisted-service contexts.
+This is not a risky big-bang replacement.
 
-SUTRA Dealer Edge can demonstrate camera evidence capture, Hindi/BHASHINI-ready assistance, local evidence-quality checks, human confirmation, encrypted/idempotent queueing, signed/hash-linked receipts and approved later sync.
+`inventory -> source crosswalk -> parallel replay -> count/value reconciliation -> controlled cutover -> rollback-capable operations`
 
-### Hard boundary
-
-**SUTRA never approves Government expenditure offline and never fabricates payment success.** Government approval and financial settlement remain online, authorised and source-backed.
-
----
-
-## Integration truth doctrine
-
-- `LIVE` — authoritative production integration actually connected and verified.
-- `SANDBOX` — real external sandbox/test environment.
-- `CONTRACT-READY` — adapter/interface defined; Government credentials, legal basis and network onboarding required.
-- `ADAPTER-READY` — capability layer exists; approved runtime/model configuration required.
-- `PROTOTYPE-PROVEN` — capability demonstrated independently, still subject to production onboarding.
-- `SIMULATED` — deterministic evaluator behavior only; never shown as external truth.
-
-The evaluation release does **not** claim live access to RajKisan, IFMS, PFMS, GSTN, UIDAI or Raj Sewa Dwaar.
-
----
-
-## Security and Government authority
-
-- no parallel payment wallet;
-- no duplicate generic vendor master;
-- RBAC + scheme/district/value-aware ABAC design;
-- maker-checker for sensitive changes;
-- Payment Identity Lock for bank-profile changes;
-- append-only state/audit events;
-- reason-coded duplicate/risk controls;
-- authoritative external status required before settlement is shown as real;
-- AI may assist evidence and explanation but does not exercise expenditure authority.
-
-See [`docs/SECURITY_GOVERNANCE.md`](docs/SECURITY_GOVERNANCE.md).
-
----
-
-## Brownfield migration and Government handover
-
-The pilot is not treated as greenfield. Existing fragmented scheme ledgers are handled through a staged process:
-
-`Inventory → crosswalk → shadow Claim Truth replay → count/value reconciliation → controlled cutover → rollback-capable operations`.
-
-Questionable historical records become explicit exceptions rather than destructive “deduplication.” Government handover includes source, schemas, API contracts, Scheme Pack catalogue, migration crosswalks, SOPs, test evidence, security artefacts, monitoring, backup/DR runbooks, training and transition support.
+The handover pack includes source, OpenAPI contracts, Scheme Pack schemas, interface register, data dictionary, security controls, runbooks, migration reconciliation, UAT evidence, training material, RACI, backup/DR design and statewide rollout sequence.
 
 See:
 
 - [`docs/MIGRATION_CUTOVER.md`](docs/MIGRATION_CUTOVER.md)
 - [`docs/GOVERNMENT_HANDOVER.md`](docs/GOVERNMENT_HANDOVER.md)
 - [`docs/RACI.md`](docs/RACI.md)
+- [`docs/SECURITY_GOVERNANCE.md`](docs/SECURITY_GOVERNANCE.md)
 
 ---
 
-## 90-day pilot target
+# Execution credibility
 
-Indicative pilot budget: **INR 44.8 lakh**, subject to confirmed Government interfaces, hosting/security requirements and taxes.
+Syntheon is a DPIIT-recognised Rajasthan startup building repository-backed governed AI, edge systems, digital twins and evidence-linked public-sector workflows.
 
-Pilot gates:
+Documented programme milestones relevant to execution capability include:
 
-`Inception → Foundations → Claim Intelligence → Finance Integration → Reconciliation + Last Mile → Hardening/Handover`
+- **C-DAC / MeitY Blockchain India Challenge** - VYOM Trade Ledger selected for the Proof-of-Concept phase.
+- **IndiaAI Innovation Challenge 2026** - Nyaya Saarthi reached the Evaluation Committee / presentation stage.
+- **BHASHINI - Current AI VYOMA** - selected for a next-stage handheld-AI prototype sprint, demonstrating multilingual edge hardware/software integration.
+- Four **IICG Grant Challenge 2026** deep-tech proposals were formally acknowledged for review; these are cited only as submissions under review, not awards/selections.
 
-Representative targets include <4h median clean-claim departmental validation, ≤T+2 working-day departmental approval for clean claims, 100% exact-key duplicate detection, complete claim/payment lineage and ≥90% eligible auto-reconciliation where authoritative external references are available.
-
-External bank/Treasury/PFMS settlement timing is explicitly separated from the SLA RAJ-AGRIPAY controls.
+Programme milestones demonstrate execution evidence only; they are not represented as endorsement of RAJ-AGRIPAY.
 
 ---
 
-## Run locally
+# Repository evidence pack
+
+- [`docs/RESEARCH_EVIDENCE.md`](docs/RESEARCH_EVIDENCE.md) - Rajasthan / national infrastructure findings and design consequences
+- [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) - control plane, evidence, state and authority design
+- [`docs/INTEGRATION_MATRIX.md`](docs/INTEGRATION_MATRIX.md) - connector readiness and production gates
+- [`docs/SECURITY_GOVERNANCE.md`](docs/SECURITY_GOVERNANCE.md) - finance-grade and responsible-AI controls
+- [`docs/90_DAY_PILOT.md`](docs/90_DAY_PILOT.md) - rollout gates and measurable outcomes
+- [`docs/JUDGE_DEMO_4_MINUTES.md`](docs/JUDGE_DEMO_4_MINUTES.md) - evaluator choreography
+- [`docs/EVALUATOR_OBJECTIONS.md`](docs/EVALUATOR_OBJECTIONS.md) - challenge / procurement Q&A
+- [`docs/SYNTHETIC_DATA_MANIFEST.md`](docs/SYNTHETIC_DATA_MANIFEST.md) - truth-labelled demo data boundary
+- [`openapi/raj-agripay.yaml`](openapi/raj-agripay.yaml) - contract-first API surface
+- [`schemas/scheme-pack.example.json`](schemas/scheme-pack.example.json) - governed rule-pack example
+- [`schemas/claim-truth-packet.example.json`](schemas/claim-truth-packet.example.json) - evidence-packet example
+
+---
+
+# Run locally
 
 ```bash
 npm install
@@ -266,29 +289,14 @@ npm run build
 npm run dev
 ```
 
-Runtime target: **Node.js 22+**.
+Runtime target: **Node.js 22+**. Health endpoint: `/api/health`.
+
+> GitHub Actions in this private repository has been producing a repository-level `startup_failure` before job creation. That state is deliberately separated from application build truth; the source-level static gate is included in-repo and the deployment gate must still be proven on an executing runner/local environment before final production claim.
 
 ---
 
-## Research, engineering & submission pack
+## Submission doctrine
 
-- [`docs/RESEARCH_EVIDENCE.md`](docs/RESEARCH_EVIDENCE.md) — Rajasthan/national infrastructure findings.
-- [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) — control-plane and state-machine design.
-- [`docs/INTEGRATION_MATRIX.md`](docs/INTEGRATION_MATRIX.md) — external-system readiness boundaries.
-- [`docs/SECURITY_GOVERNANCE.md`](docs/SECURITY_GOVERNANCE.md) — finance-grade controls.
-- [`docs/90_DAY_PILOT.md`](docs/90_DAY_PILOT.md) — implementation gates and KPIs.
-- [`docs/MIGRATION_CUTOVER.md`](docs/MIGRATION_CUTOVER.md) — brownfield transition plan.
-- [`docs/GOVERNMENT_HANDOVER.md`](docs/GOVERNMENT_HANDOVER.md) — departmental ownership package.
-- [`docs/RACI.md`](docs/RACI.md) — Agriculture / Finance / DoIT&C / Syntheon ownership.
-- [`docs/JUDGE_DEMO_4_MINUTES.md`](docs/JUDGE_DEMO_4_MINUTES.md) — evaluator choreography.
-- [`docs/EVALUATOR_OBJECTIONS.md`](docs/EVALUATOR_OBJECTIONS.md) — red-team Q&A.
-- [`docs/RUNTIME_VERIFICATION.md`](docs/RUNTIME_VERIFICATION.md) — release gates.
-- [`docs/SUBMISSION_FORM_ANSWERS.md`](docs/SUBMISSION_FORM_ANSWERS.md) — portal-ready answers.
+**No fake API. No autonomous expenditure. No invented UTR. No decorative AI. No parallel Government payment rail.**
 
----
-
-## Why this is defensible
-
-Most submissions can build an upload form, call OCR and draw a PFMS status card. RAJ-AGRIPAY is designed around the harder Government problem: **what Agriculture evidence makes an invoice payable, what sovereign Finance rail must receive it, what exception owner can unblock it, and what evidence closes the loop after money moves.**
-
-That is the layer the prototype is built to prove.
+RAJ-AGRIPAY wins by making the existing Rajasthan Agriculture + Finance ecosystem operate as one transparent, evidence-linked dealer settlement journey.
