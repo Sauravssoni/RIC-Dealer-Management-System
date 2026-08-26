@@ -3,6 +3,7 @@ import EvaluatorJourneys from "@/components/EvaluatorJourneys";
 import "./globals.css";
 import "./map-enhancements.css";
 import "./journeys.css";
+import "./alerts.css";
 
 export const metadata: Metadata = {
   title: "RAJ-AGRIPAY | Rajasthan Agriculture Dealer Control Plane",
