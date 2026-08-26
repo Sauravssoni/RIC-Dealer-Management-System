@@ -7,7 +7,13 @@ const mustExist = [
   "app/dashboard/layout.tsx",
   "app/dashboard/dashboard.css",
   "app/dashboard/DashboardBoot.tsx",
+  "app/dashboard/DashboardAlerts.tsx",
+  "app/dashboard/DashboardProgramme.tsx",
   "app/dashboard/boot.css",
+  "app/dashboard/dashboard-alerts.css",
+  "app/dashboard/programme.css",
+  "app/dashboard/map-pro.css",
+  "public/rajasthan-operations-map.svg",
   "app/onboarding/page.tsx",
   "app/intake/page.tsx",
   "app/impact/page.tsx",
@@ -19,6 +25,9 @@ const mustExist = [
   "schemas/claim-truth-packet.example.json",
   "docs/SECURITY_GOVERNANCE.md",
   "docs/90_DAY_PILOT.md",
+  "docs/VISION_ROADMAP.md",
+  "docs/SUBMISSION_MASTER.md",
+  "docs/FORM_ANSWERS_FINAL.md",
   "docs/MIGRATION_CUTOVER.md",
   "docs/GOVERNMENT_HANDOVER.md",
   "docs/RACI.md",
@@ -40,6 +49,10 @@ const assertions = [
   ["app/dashboard/page.tsx", "no live RajKisan / IFMS / PFMS credentials are claimed"],
   ["app/dashboard/DashboardBoot.tsx", "EVALUATION SANDBOX"],
   ["app/dashboard/DashboardBoot.tsx", "Loading evaluation claim ledger"],
+  ["app/dashboard/DashboardProgramme.tsx", "RAJ-AGRIPAY Programme Office"],
+  ["app/dashboard/DashboardProgramme.tsx", "₹44.8L"],
+  ["app/dashboard/DashboardProgramme.tsx", "FarmGraph AI Interoperability"],
+  ["app/dashboard/DashboardProgramme.tsx", "Future-boundary rule"],
   ["app/onboarding/page.tsx", "Payment Identity Lock"],
   ["app/onboarding/page.tsx", "RajKisan licence"],
   ["app/intake/page.tsx", "Do not OCR what Government already made machine-readable"],
@@ -50,8 +63,10 @@ const assertions = [
   ["components/EvaluatorJourneys.tsx", "SMS / PORTAL ALERTS"],
   ["components/EvaluatorJourneys.tsx", "Evaluation messages only"],
   ["components/EvaluatorJourneys.tsx", "Impact lab"],
+  ["docs/90_DAY_PILOT.md", "Wave 4 - Planning intelligence"],
+  ["docs/VISION_ROADMAP.md", "FarmGraph AI interoperability"],
   ["README.md", "IFMS moves public money"],
-  ["README.md", "The dashboard is intentionally **not a pitch page**"],
+  ["README.md", "this is an operations product, not a pitch page"],
 ];
 
 let failures = 0;
@@ -82,4 +97,4 @@ if (failures) {
   console.error(`\nRAJ-AGRIPAY release self-check FAILED (${failures})`);
   process.exit(1);
 }
-console.log("\nRAJ-AGRIPAY release self-check PASSED — dashboard-first product, loading state, critical journeys, contracts, migration, handover and authority invariants are present.");
+console.log("\nRAJ-AGRIPAY release self-check PASSED - dashboard-first operations, visible programme vision, Rajasthan map, critical journeys, contracts, migration, handover and authority invariants are present.");
