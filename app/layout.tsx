@@ -4,6 +4,7 @@ import "./globals.css";
 import "./map-enhancements.css";
 import "./journeys.css";
 import "./alerts.css";
+import "./impact.css";
 
 export const metadata: Metadata = {
   title: "RAJ-AGRIPAY | Rajasthan Agriculture Dealer Control Plane",
