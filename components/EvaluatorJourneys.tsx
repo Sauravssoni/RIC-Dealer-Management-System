@@ -8,6 +8,7 @@ const journeys = [
   { href: "/", label: "Operations", sub: "claim → payment → reconciliation" },
   { href: "/onboarding", label: "Dealer onboarding", sub: "e-KYC → licence → IFMS mapping" },
   { href: "/intake", label: "Invoice intake", sub: "IRN/QR or OCR → claim packet" },
+  { href: "/impact", label: "Impact lab", sub: "TAT → cash-flow → admin value" },
 ];
 
 export default function EvaluatorJourneys() {
