@@ -6,7 +6,9 @@ const mustExist = [
   "app/page.tsx",
   "app/onboarding/page.tsx",
   "app/intake/page.tsx",
+  "app/impact/page.tsx",
   "app/alerts.css",
+  "app/impact.css",
   "components/EvaluatorJourneys.tsx",
   "openapi/raj-agripay.yaml",
   "schemas/scheme-pack.example.json",
@@ -14,6 +16,9 @@ const mustExist = [
   "docs/SECURITY_GOVERNANCE.md",
   "docs/90_DAY_PILOT.md",
   "docs/DEMO_RUNBOOK.md",
+  "docs/JUDGE_DEMO_4_MINUTES.md",
+  "docs/EVALUATOR_OBJECTIONS.md",
+  "docs/RUNTIME_VERIFICATION.md",
 ];
 
 const assertions = [
@@ -22,11 +27,14 @@ const assertions = [
   ["app/intake/page.tsx", "Do not OCR what Government already made machine-readable"],
   ["app/intake/page.tsx", "DUPLICATE_INVOICE_REFERENCE"],
   ["app/intake/page.tsx", "12 deterministic"],
+  ["app/impact/page.tsx", "EVALUATION SCENARIO"],
+  ["app/impact/page.tsx", "Working-capital cycle released"],
   ["app/page.tsx", "Authoritative payment acknowledgement simulated"],
   ["app/page.tsx", "Never approve Government expenditure offline"],
   ["app/page.tsx", "EVALUATION SANDBOX"],
   ["components/EvaluatorJourneys.tsx", "SMS / PORTAL ALERTS"],
   ["components/EvaluatorJourneys.tsx", "Evaluation messages only"],
+  ["components/EvaluatorJourneys.tsx", "Impact lab"],
   ["README.md", "RAJ-AGRIPAY does not replace Rajasthan's finance infrastructure"],
 ];
 
@@ -58,4 +66,4 @@ if (failures) {
   console.error(`\nRAJ-AGRIPAY release self-check FAILED (${failures})`);
   process.exit(1);
 }
-console.log("\nRAJ-AGRIPAY release self-check PASSED — critical evaluator routes, contracts, alerts and authority invariants are present.");
+console.log("\nRAJ-AGRIPAY release self-check PASSED — critical evaluator routes, contracts, alerts, impact assumptions and authority invariants are present.");
