@@ -6,7 +6,9 @@
 |---|---|---|---|---|
 | RajKisan | dealer licence/lifecycle, Agriculture scheme references | CONTRACT-READY | Department-approved service contract via Raj Sewa Dwaar | Department of Agriculture |
 | Rajasthan SSO | dealer/officer authentication and role handoff | CONTRACT-READY | app registration, approved role mapping | DoIT&C / authorised identity service |
-| Raj Sewa Dwaar | State API/ESB path, policy, monitoring | CONTRACT-READY | service onboarding, subscription, network/security approvals | DoIT&C / RISL |
+| Raj Sewa Dwaar | State API/ESB path, policy, subscriptions, monitoring | CONTRACT-READY | service onboarding, subscription, network/security approvals | DoIT&C / RISL |
+| **Raj eSign** | officer approval/signing receipts and governed document execution | CONTRACT-READY | ASP onboarding, authorised signer policy, RajeSign/Raj Sewa Dwaar subscription | RISL / authorised Government signatory |
+| **e-Sanchar 3.0 / Push SMS** | dealer action/status notifications and delivery receipts | CONTRACT-READY | approved Department messaging account/template, Raj Sewa Dwaar/e-Sanchar onboarding | DoIT&C / RISL / Department |
 | IFMS 3.0 | vendor/payee references, bill/payment handoff, status/reconciliation references | CONTRACT-READY | Finance-approved API/service and network access | Finance / Treasury |
 | PFMS / SNA-SPARSH | applicable CSS scheme/payment acknowledgement route | CONTRACT-READY | SSID, scheme mapping, whitelisting, State IFMIS integration | Government of India / State Finance |
 | GST e-Invoice / IRP | structured IRN/QR invoice evidence | SANDBOX | taxpayer/GSP authorisation and production credentials | GSTN / authorised IRP |
@@ -14,6 +16,18 @@
 | BHASHINI | Hindi/regional ASR, translation and TTS for Dealer Saarthi / assisted channel | ADAPTER-READY | approved credentials/runtime and language-model selection | Digital India BHASHINI / configured service |
 | SUTRA-ID Edge | optional assisted/offline evidence capture, voice, local confirmation and sync | PROTOTYPE-PROVEN | approved device/security/network profile | Department/server-side authorised workflow |
 | Rajasthan GIS/master data | authoritative district/admin geometry in production | CONTRACT-READY | Department/DoIT&C-approved GIS/master-data source | Authoritative Rajasthan GIS/master-data owner |
+
+## Why Raj eSign belongs in the workflow
+
+Rajasthan publishes RajeSign API 2.1/3.2 onboarding for Application Service Providers, and current API documentation routes production signing calls through `api.sewadwaar.rajasthan.gov.in`. RAJ-AGRIPAY therefore treats officer signing as a Rajasthan-native contract integration rather than inventing a proprietary approval-signature mechanism.
+
+The evaluator prototype records a human approval receipt locally. Production activation requires authorised ASP onboarding, signer policy, RSD subscription and the Department's legal/financial approval design.
+
+## Why e-Sanchar belongs in dealer notifications
+
+DoIT&C/RISL has an e-Sanchar 3.0 programme and an SMS-services component for State messaging. RAJ-AGRIPAY therefore targets e-Sanchar/approved State messaging for SMS/portal action alerts rather than creating a standalone messaging silo.
+
+A notification event records: claim ID, channel, template/version, source claim state, creation time, dispatch result, delivery result where available and correlation ID. **A message can never be used as the authoritative payment state.**
 
 ## Readiness labels
 
@@ -30,4 +44,4 @@ The evaluator dashboard uses a real Rajasthan geographic base for orientation, s
 
 ## Non-negotiable finance boundary
 
-RAJ-AGRIPAY may validate, assemble, explain, route and reconcile Agriculture claim evidence. It does **not** hold Government funds, replace Treasury/IFMS/PFMS, manufacture an acknowledgement, or allow an AI/SUTRA device to exercise expenditure authority.
+RAJ-AGRIPAY may validate, assemble, explain, route, sign/notify through authorised State services and reconcile Agriculture claim evidence. It does **not** hold Government funds, replace Treasury/IFMS/PFMS, manufacture an acknowledgement, treat an SMS as a payment receipt, or allow an AI/SUTRA device to exercise expenditure authority.
