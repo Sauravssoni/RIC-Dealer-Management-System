@@ -27,7 +27,7 @@ const assertions = [
   ["next.config.mjs", "destination: \"/dashboard\""],
   ["app/dashboard/page.tsx", "Dealer Payment Operations"],
   ["app/dashboard/page.tsx", "Evidence before expenditure"],
-  ["app/dashboard/page.tsx", "Authoritative acknowledgement"],
+  ["app/dashboard/page.tsx", "Simulate authoritative acknowledgement"],
   ["app/dashboard/page.tsx", "Raj eSign"],
   ["app/dashboard/page.tsx", "e-Sanchar 3.0"],
   ["app/dashboard/page.tsx", "SUTRA Dealer Edge"],
