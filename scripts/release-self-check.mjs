@@ -3,7 +3,9 @@ import path from "node:path";
 
 const root = process.cwd();
 const mustExist = [
-  "app/page.tsx",
+  "app/dashboard/page.tsx",
+  "app/dashboard/layout.tsx",
+  "app/dashboard/dashboard.css",
   "app/onboarding/page.tsx",
   "app/intake/page.tsx",
   "app/impact/page.tsx",
@@ -22,6 +24,14 @@ const mustExist = [
 ];
 
 const assertions = [
+  ["next.config.mjs", "destination: \"/dashboard\""],
+  ["app/dashboard/page.tsx", "Dealer Payment Operations"],
+  ["app/dashboard/page.tsx", "Evidence before expenditure"],
+  ["app/dashboard/page.tsx", "Authoritative acknowledgement"],
+  ["app/dashboard/page.tsx", "Raj eSign"],
+  ["app/dashboard/page.tsx", "e-Sanchar 3.0"],
+  ["app/dashboard/page.tsx", "SUTRA Dealer Edge"],
+  ["app/dashboard/page.tsx", "no live RajKisan / IFMS / PFMS credentials are claimed"],
   ["app/onboarding/page.tsx", "Payment Identity Lock"],
   ["app/onboarding/page.tsx", "RajKisan licence"],
   ["app/intake/page.tsx", "Do not OCR what Government already made machine-readable"],
@@ -29,9 +39,6 @@ const assertions = [
   ["app/intake/page.tsx", "12 deterministic"],
   ["app/impact/page.tsx", "EVALUATION SCENARIO"],
   ["app/impact/page.tsx", "Working-capital cycle released"],
-  ["app/page.tsx", "Authoritative payment acknowledgement simulated"],
-  ["app/page.tsx", "Never approve Government expenditure offline"],
-  ["app/page.tsx", "EVALUATION SANDBOX"],
   ["components/EvaluatorJourneys.tsx", "SMS / PORTAL ALERTS"],
   ["components/EvaluatorJourneys.tsx", "Evaluation messages only"],
   ["components/EvaluatorJourneys.tsx", "Impact lab"],
@@ -66,4 +73,4 @@ if (failures) {
   console.error(`\nRAJ-AGRIPAY release self-check FAILED (${failures})`);
   process.exit(1);
 }
-console.log("\nRAJ-AGRIPAY release self-check PASSED — critical evaluator routes, contracts, alerts, impact assumptions and authority invariants are present.");
+console.log("\nRAJ-AGRIPAY release self-check PASSED — officer dashboard, critical journeys, contracts, alerts, impact assumptions and authority invariants are present.");
