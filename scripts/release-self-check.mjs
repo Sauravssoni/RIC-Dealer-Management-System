@@ -17,6 +17,10 @@ const mustExist = [
   "schemas/claim-truth-packet.example.json",
   "docs/SECURITY_GOVERNANCE.md",
   "docs/90_DAY_PILOT.md",
+  "docs/MIGRATION_CUTOVER.md",
+  "docs/GOVERNMENT_HANDOVER.md",
+  "docs/RACI.md",
+  "docs/SYNTHETIC_DATA_MANIFEST.md",
   "docs/DEMO_RUNBOOK.md",
   "docs/JUDGE_DEMO_4_MINUTES.md",
   "docs/EVALUATOR_OBJECTIONS.md",
@@ -42,7 +46,8 @@ const assertions = [
   ["components/EvaluatorJourneys.tsx", "SMS / PORTAL ALERTS"],
   ["components/EvaluatorJourneys.tsx", "Evaluation messages only"],
   ["components/EvaluatorJourneys.tsx", "Impact lab"],
-  ["README.md", "RAJ-AGRIPAY does not replace Rajasthan's finance infrastructure"],
+  ["README.md", "IFMS moves public money"],
+  ["README.md", "The dashboard is intentionally **not a pitch page**"],
 ];
 
 let failures = 0;
@@ -73,4 +78,4 @@ if (failures) {
   console.error(`\nRAJ-AGRIPAY release self-check FAILED (${failures})`);
   process.exit(1);
 }
-console.log("\nRAJ-AGRIPAY release self-check PASSED — officer dashboard, critical journeys, contracts, alerts, impact assumptions and authority invariants are present.");
+console.log("\nRAJ-AGRIPAY release self-check PASSED — dashboard-first product, critical journeys, contracts, migration, handover and authority invariants are present.");
