@@ -104,7 +104,9 @@ export const districtOps: DistrictOps[] = [
 export const integrationStatus = [
   { name: "RajKisan dealer licensing", status: "CONTRACT-READY", owner: "Agriculture", note: "Dealer Passport references authoritative licence/lifecycle data; no duplicate master." },
   { name: "Rajasthan SSO", status: "CONTRACT-READY", owner: "DoIT&C", note: "Officer/dealer authentication adapter; production requires approved application registration." },
-  { name: "Raj Sewa Dwaar", status: "CONTRACT-READY", owner: "DoIT&C / RISL", note: "Target integration gateway for approved State/third-party APIs and monitoring." },
+  { name: "Raj Sewa Dwaar", status: "CONTRACT-READY", owner: "DoIT&C / RISL", note: "Target gateway for approved State/third-party APIs, including Rajasthan-native signing and messaging integrations." },
+  { name: "Raj eSign", status: "CONTRACT-READY", owner: "RISL / RajCOMP", note: "Officer approval-signing adapter. Rajasthan publishes ASP onboarding and API integration paths; production requires approved onboarding and subscription through Raj Sewa Dwaar." },
+  { name: "e-Sanchar 3.0 / Push SMS", status: "CONTRACT-READY", owner: "DoIT&C / RISL", note: "Dealer SMS/portal messaging adapter. Rajasthan's e-Sanchar stack is the preferred notification rail where provisioned; delivery receipts remain source-backed." },
   { name: "IFMS 3.0", status: "CONTRACT-READY", owner: "Finance", note: "Authoritative vendor/payee and payment rail; RAJ-AGRIPAY hands off Agriculture-ready claim packets." },
   { name: "PFMS / SNA-SPARSH", status: "CONTRACT-READY", owner: "GoI / Finance", note: "Applicable CSS route after scheme mapping, credentials, whitelisting and State IFMIS integration." },
   { name: "GST e-Invoice / IRP", status: "SANDBOX", owner: "GSTN / authorised IRP", note: "Structured IRN/QR path preferred; taxpayer authorisation and production credentials required." },
