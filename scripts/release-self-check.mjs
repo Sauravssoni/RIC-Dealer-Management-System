@@ -6,6 +6,8 @@ const mustExist = [
   "app/dashboard/page.tsx",
   "app/dashboard/layout.tsx",
   "app/dashboard/dashboard.css",
+  "app/dashboard/DashboardBoot.tsx",
+  "app/dashboard/boot.css",
   "app/onboarding/page.tsx",
   "app/intake/page.tsx",
   "app/impact/page.tsx",
@@ -36,6 +38,8 @@ const assertions = [
   ["app/dashboard/page.tsx", "e-Sanchar 3.0"],
   ["app/dashboard/page.tsx", "SUTRA Dealer Edge"],
   ["app/dashboard/page.tsx", "no live RajKisan / IFMS / PFMS credentials are claimed"],
+  ["app/dashboard/DashboardBoot.tsx", "EVALUATION SANDBOX"],
+  ["app/dashboard/DashboardBoot.tsx", "Loading evaluation claim ledger"],
   ["app/onboarding/page.tsx", "Payment Identity Lock"],
   ["app/onboarding/page.tsx", "RajKisan licence"],
   ["app/intake/page.tsx", "Do not OCR what Government already made machine-readable"],
@@ -78,4 +82,4 @@ if (failures) {
   console.error(`\nRAJ-AGRIPAY release self-check FAILED (${failures})`);
   process.exit(1);
 }
-console.log("\nRAJ-AGRIPAY release self-check PASSED — dashboard-first product, critical journeys, contracts, migration, handover and authority invariants are present.");
+console.log("\nRAJ-AGRIPAY release self-check PASSED — dashboard-first product, loading state, critical journeys, contracts, migration, handover and authority invariants are present.");
