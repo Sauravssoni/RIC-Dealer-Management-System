@@ -34,10 +34,10 @@ const openClaim = (id:string) => {
   return nav;
 };
 
-const scenarioCopy: Record<Scenario,{label:string;claim:string;tone:string;summary:string}> = {
-  clean:{label:"GREEN · CLEAN CLAIM",claim:"AGR-26-10482",tone:"green",summary:"Prove straight-through Agriculture validation, human authority, finance acknowledgement and claim-to-UTR closure."},
-  bank:{label:"AMBER · BANK CHANGE",claim:"AGR-26-10479",tone:"amber",summary:"Prove Payment Identity Lock, maker-checker re-verification and controlled recovery without deleting evidence."},
-  duplicate:{label:"RED · DUPLICATE",claim:"AGR-26-10481",tone:"red",summary:"Prove exact duplicate detection blocks Finance release with an explainable policy reason instead of an opaque AI score."}
+const scenarioCopy: Record<Scenario,{label:string;claim:string;tone:string;summary:string;message:string;channel:string}> = {
+  clean:{label:"GREEN · CLEAN CLAIM",claim:"AGR-26-10482",tone:"green",summary:"Prove straight-through Agriculture validation, human authority, finance acknowledgement and claim-to-UTR closure.",message:"Claim passed Agriculture evidence checks. After authoritative payment acknowledgement, the portal exposes the UTR and reconciliation state.",channel:"Portal + e-Sanchar-ready event"},
+  bank:{label:"AMBER · BANK CHANGE",claim:"AGR-26-10479",tone:"amber",summary:"Prove Payment Identity Lock, maker-checker re-verification and controlled recovery without deleting evidence.",message:"Action required: payment-profile re-verification is pending. No payment failure or success is implied while the hold remains open.",channel:"Action alert · e-Sanchar-ready"},
+  duplicate:{label:"RED · DUPLICATE",claim:"AGR-26-10481",tone:"red",summary:"Prove exact duplicate detection blocks Finance release with an explainable policy reason instead of an opaque AI score.",message:"Claim held for departmental review: the invoice reference is already linked to another claim. Finance release remains blocked.",channel:"Portal exception notice"}
 };
 
 export default function EvaluatorConsole(){
@@ -74,6 +74,7 @@ export default function EvaluatorConsole(){
   const activeSteps=steps[scenario];
   const current=activeSteps[Math.min(step,activeSteps.length-1)];
   const pct=Math.round(((Math.min(step,activeSteps.length-1)+1)/activeSteps.length)*100);
+  const comm=scenarioCopy[scenario];
 
   const resetDemo=()=>{
     clickButton("Reset");
@@ -115,6 +116,7 @@ export default function EvaluatorConsole(){
           <div className="demoActionRow"><button className="evalPrimary" onClick={execute}>{current.action} →</button><button className="evalSecondary" onClick={resetDemo}>Reset dataset</button></div>
           <div className="demoNote"><b>Evaluator receipt</b><span>{note}</span></div>
         </section>
+        <section className={`dealerMessageProof ${comm.tone}`}><div><span>DEALER COMMUNICATION PROOF</span><b>{comm.channel}</b></div><p>{comm.message}</p><small>Evaluation message only · production dispatch/receipt uses e-Sanchar 3.0 or another approved Rajasthan messaging rail after authorised onboarding.</small></section>
         <section className="judgeCue"><span>THE 20-SECOND EXPLANATION</span><p><b>RAJ-AGRIPAY does not replace IFMS.</b> It compiles Agriculture-specific claim truth, owns exceptions, routes a finance-ready packet to sovereign rails and closes the evidence loop after payment.</p></section>
       </div>}
 
@@ -131,6 +133,7 @@ export default function EvaluatorConsole(){
 
       {tab==="Truth"&&<div className="evalBody">
         <section className="truthRows">
+          <article><span>BUILD VERIFIED</span><b>Next.js production build green on Vercel</b><p>The evaluator release compiles and deploys through the production Vercel build path; this is executable prototype evidence, not a static mock-up.</p></article>
           <article><span>PROTOTYPE</span><b>Functional officer workflows</b><p>Dealer onboarding/renewal, invoice intake, Claim Truth, scheme controls, exceptions, finance handoff simulation, reconciliation, district MIS and SUTRA demo.</p></article>
           <article><span>CONTRACT-READY</span><b>Rajasthan / sovereign rails</b><p>RajKisan, Rajasthan SSO, Raj Sewa Dwaar, IFMS 3.0, PFMS/SNA-SPARSH, Raj eSign and e-Sanchar require Government onboarding/credentials.</p></article>
           <article><span>SANDBOX / ADAPTER</span><b>GST + BHASHINI</b><p>Structured invoice and multilingual adapters are designed to integrate through authorised environments; no production access is implied.</p></article>
