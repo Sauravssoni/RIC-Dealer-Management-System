@@ -1,23 +1,17 @@
 import type { Metadata } from "next";
-import EvaluatorJourneys from "@/components/EvaluatorJourneys";
 import "./globals.css";
-import "./map-enhancements.css";
 import "./journeys.css";
-import "./alerts.css";
 import "./impact.css";
 
 export const metadata: Metadata = {
   title: "RAJ-AGRIPAY | Rajasthan Agriculture Dealer Control Plane",
-  description: "Integrated dealer lifecycle, invoice intelligence, claim validation, payment orchestration and reconciliation fabric for Rajasthan Agriculture.",
+  description: "Functional evaluator prototype for integrated dealer lifecycle, invoice intelligence, Agriculture claim validation, finance orchestration and reconciliation in Rajasthan.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body>
-        {children}
-        <EvaluatorJourneys />
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
