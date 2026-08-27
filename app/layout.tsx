@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import "./journeys.css";
 import "./impact.css";
+import "./journey-readability.css";
 
 export const metadata: Metadata = {
   title: "RAJ-AGRIPAY | Rajasthan Agriculture Dealer Control Plane",
