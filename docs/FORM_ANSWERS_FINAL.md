@@ -10,33 +10,34 @@
 - CIN: `U63120RJ2025PTC100649`
 - Stage: Seed Stage
 - Employees: 11
-- Suggested sectors: Agriculture; Agritech; AI; Analytics; Computer Vision; Enterprise Software; SaaS; Cloud computing; Deep Tech; IoT; Blockchain; IT Services
+- Recommended relevant sectors only: Agriculture; Agritech; AI; Analytics; Computer Vision; Enterprise Software; SaaS; Cloud computing; Deep Tech; IoT
 
-## Challenge - 462 characters
-RAJ-AGRIPAY is Rajasthan Agriculture's dealer claim-to-settlement control plane. It addresses T+15-T+30 delays, paper invoice checks, fragmented scheme ledgers and poor dealer/auditor visibility without duplicating RajKisan or IFMS. Dealer Passport, IRN/QR-first invoice intelligence with OCR fallback, deterministic Scheme Packs, Claim Truth checks, human approval, IFMS/PFMS routing, alerts and claim-to-UTR reconciliation create one auditable digital journey.
+## Challenge - 447 characters
+RAJ-AGRIPAY is Rajasthan Agriculture’s dealer claim-to-settlement control plane for T+15–T+30 delays, manual invoice checks, fragmented scheme ledgers and weak dealer/audit visibility. It federates Dealer Passport, IRN/QR-first invoice evidence with OCR fallback, deterministic Scheme Packs and Claim Truth checks, then routes human-approved packets to IFMS/PFMS and closes acknowledgement, UTR, alerts and reconciliation in one auditable journey.
 
-## Value proposition - 388 characters
-Syntheon offers a low-cost, API-first Dealer Lifecycle & Payment Evidence Fabric covering onboarding/renewal, licence/payee references, invoice capture, explainable rule checks, maker-checker approvals, exception ownership, Finance handoff, dealer status, district MIS and reconciliation. Existing Government rails remain authoritative, reducing integration risk, duplication and lock-in.
+## Value proposition - 416 characters
+Syntheon offers a deployable Dealer Lifecycle & Payment Evidence Fabric: onboarding/renewal, licence/payee references, invoice intelligence, explainable rules, maker-checker approvals, owned exceptions, Finance handoff, dealer status, district MIS and reconciliation. It complements RajKisan/IFMS instead of replacing them, reducing duplication and lock-in while letting new schemes launch as governed configuration.
 
-## How technology addresses the challenge - 485 characters
-In 90 days we map baseline/open bills, then activate Dealer Passport, IRN/QR/OCR intake, versioned scheme rules, duplicate/rate/quantity checks, officer queues, State/CSS routing, alerts and reconciliation. Raj Sewa Dwaar is the integration path; Raj eSign/e-Sanchar are signing/messaging adapters; IFMS/PFMS/Treasury remain settlement authorities. BHASHINI/SUTRA add optional assisted offline capture. Targets: <4h clean validation, <=T+2 approval, >=90% eligible auto-reconciliation.
+## How technology addresses the challenge - 437 characters
+The functional prototype already demonstrates onboarding, IRN/QR + OCR intake, clean/exception/duplicate claims, human approval, Finance acknowledgement simulation, UTR, reconciliation, district MIS and judge-controlled GREEN/AMBER/RED scenarios. A 90-day pilot adds authorised Rajasthan integrations, migration, security/UAT and handover, targeting <4h clean validation, ≤T+2 departmental approval and ≥90% eligible auto-reconciliation.
 
-## Available resource / USP - 464 characters
-Most alternatives stop at dealer login + OCR + dashboard + PFMS. RAJ-AGRIPAY adds the missing Agriculture claim-truth layer: machine-readable GST evidence before OCR, reason-coded duplicate/rate/quantity controls, Payment Identity Lock for risky bank changes, historical Scheme Pack replay and Claim-to-UTR audit lineage. Syntheon adds governed AI plus optional SUTRA/BHASHINI assisted edge workflows without giving AI or devices authority over public expenditure.
+## Available resource / USP - 427 characters
+Most alternatives stop at login + OCR + dashboard + PFMS. RAJ-AGRIPAY adds Agriculture-specific Claim Truth: structured GST evidence before OCR, reason-coded PASS/EXCEPTION/BLOCK, Payment Identity Lock, effective-dated Scheme Packs and Claim-to-UTR lineage. AI assists but never approves expenditure; optional SUTRA/BHASHINI enables multilingual/offline evidence capture. The current Next.js evaluator build is Vercel-verified.
 
 ## Estimated cost
-`INR 44,80,000` - indicative 90-day pilot; final scope subject to authorised interfaces, hosting/security requirements and taxes.
+`INR 44,80,000` - indicative 90-day pilot; final scope subject to authorised interfaces, State hosting/security requirements and taxes.
 
-## Government evaluation history - 440 characters
-C-DAC/MeitY Blockchain India Challenge: VYOM Trade Ledger selected for PoC; bct-challenge@cdac.in. IndiaAI Innovation Challenge 2026: Nyaya Saarthi selected for Stage 2 after presentation/evaluation; support-indiaai@indiaai.gov.in. BHASHINI/Current AI VYOMA: selected for handheld-AI prototype sprint; validation: Parmita Kain (parmita.dic@digitalindia.gov.in) / Ananya Mukherjee (ananya@kalpaimpact.com). Evidence correspondence available.
+## Government evaluation history - 439 characters
+C-DAC/MeitY Blockchain India Challenge (cdac.in) — VYOM Trade Ledger selected for PoC; bct-challenge@cdac.in. IndiaAI Innovation Challenge 2026 (indiaai.gov.in) — Nyaya Saarthi selected for Stage 2/Pilot after evaluation; support-indiaai@indiaai.gov.in. BHASHINI–Current AI VYOMA (bhashini.gov.in) — selected for handheld-AI prototype sprint; validation: parmita.dic@digitalindia.gov.in / ananya@kalpaimpact.com. Evidence emails available.
 
 ## Proposal Deck
-Preferred portal upload: `RAJ_AGRIPAY_Winning_Deck_11of10.pdf` (below 5 MB). Editable alternative: PPTX equivalent.
+Preferred portal upload: latest `RAJ_AGRIPAY_Winning_Deck` PDF (must remain below 5 MB).
 
 ## Optional attachment
-`RAJ_AGRIPAY_Executive_Dossier_11of10.pdf` (below 2 MB).
+Preferred: latest `RAJ_AGRIPAY_Executive_Dossier` PDF (must remain below 2 MB).
 
 ## URL
+Prefer the confirmed public **Dealer Management** Vercel URL so evaluators can open the functional prototype without repository access. The supporting repository is:
 https://github.com/Sauravssoni/RIC-Dealer-Management-System
 
 ## Entity uploads
