@@ -1,12 +1,10 @@
 import DashboardBoot from "./DashboardBoot";
-import DashboardAlerts from "./DashboardAlerts";
-import DashboardProgramme from "./DashboardProgramme";
+import EvaluatorConsole from "./EvaluatorConsole";
 import "./dashboard.css";
 import "./boot.css";
-import "./dashboard-alerts.css";
-import "./programme.css";
+import "./evaluator-console.css";
 import "./map-pro.css";
 
 export default function DashboardLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <DashboardBoot>{children}<DashboardProgramme /><DashboardAlerts /></DashboardBoot>;
+  return <DashboardBoot>{children}<EvaluatorConsole /></DashboardBoot>;
 }
