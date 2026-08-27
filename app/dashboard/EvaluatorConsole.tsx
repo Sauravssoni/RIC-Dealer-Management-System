@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 
 type Scenario = "clean" | "bank" | "duplicate";
-type Tab = "Demo" | "Programme" | "Truth";
+type Tab = "Demo" | "Programme" | "Governance" | "Truth";
 
 type DemoStep = {
   title: string;
@@ -102,7 +102,7 @@ export default function EvaluatorConsole(){
         <button onClick={()=>setOpen(false)} aria-label="Close evaluator console">×</button>
       </header>
       <div className="evalBoundary"><i/> EVALUATION SANDBOX · deterministic fixtures · no live RajKisan / IFMS / PFMS credentials claimed</div>
-      <nav className="evalTabs">{(["Demo","Programme","Truth"] as Tab[]).map(t=><button key={t} className={tab===t?"active":""} onClick={()=>setTab(t)}>{t}</button>)}</nav>
+      <nav className="evalTabs">{(["Demo","Programme","Governance","Truth"] as Tab[]).map(t=><button key={t} className={tab===t?"active":""} onClick={()=>setTab(t)}>{t}</button>)}</nav>
 
       {tab==="Demo"&&<div className="evalBody">
         <section className="scenarioGrid">
@@ -129,6 +129,18 @@ export default function EvaluatorConsole(){
         </section>
         <section className="scalePath"><div><span>NOW</span><b>Dealer claim-to-settlement</b></div><i>→</i><div><span>SCALE</span><b>Agriculture Payment Evidence Fabric</b></div><i>→</i><div><span>FUTURE</span><b>FarmGraph AI interoperability</b></div></section>
         <div className="futureRule"><b>Vision without scope inflation</b><span>FarmGraph, satellite, IoT, drone and farm-registry signals are future authorised interoperability — not claimed live in this evaluator build.</span></div>
+      </div>}
+
+      {tab==="Governance"&&<div className="evalBody">
+        <section className="truthRows">
+          <article><span>LEGAL-SYSTEM DESIGN</span><b>Policy is executable, versioned and reviewable</b><p>Scheme Packs are effective-dated and maker-checker governed. A historical claim replays against the exact policy version that applied when the transaction occurred.</p></article>
+          <article><span>EVIDENCE PROVENANCE</span><b>Every important fact keeps its source and authority</b><p>Structured invoice fields, OCR fallback, dealer identity references, approvals, acknowledgements and corrections preserve provenance instead of collapsing into an opaque AI conclusion.</p></article>
+          <article><span>REASON + REMEDY</span><b>Every exception should tell an officer what happened and what cures it</b><p>PASS / EXCEPTION / BLOCK outcomes use reproducible reason codes, an accountable owner and a next action. Audit packets remain suitable for review, grievance handling and dispute reconstruction.</p></article>
+          <article><span>PRE-DISPUTE HYGIENE</span><b>Prevent ambiguity before money moves</b><p>The Deal Saarthi design principle is applied as transaction hygiene: make identity changes, commitments, approvals, evidence and state transitions explicit before they become payment disputes.</p></article>
+          <article><span>HUMAN PUBLIC AUTHORITY</span><b>AI assists; Government decides</b><p>Extraction, prioritisation and explanation may be AI-assisted. Expenditure approval, policy override and authoritative payment state remain with authorised humans and sovereign systems.</p></article>
+        </section>
+        <section className="judgeCue"><span>WHY THIS DESIGN DISCIPLINE EXISTS</span><p>Syntheon brings a legal-and-governance systems lens into product architecture. <b>Nyaya Saarthi</b> reinforced evidence-linked state, human authority and auditable correction patterns; <b>Deal Saarthi</b> contributes the pre-dispute principle of making commitments and evidence explicit early. RAJ-AGRIPAY transfers those governance disciplines into Agriculture finance without turning the product into legal-tech.</p></section>
+        <div className="productionNext"><span>GOVERNANCE OUTCOME</span><b>Fewer ambiguous decisions · clearer officer authority · reviewable rules · evidence-linked corrections · better grievance/dispute reconstruction · no black-box expenditure authority.</b></div>
       </div>}
 
       {tab==="Truth"&&<div className="evalBody">
