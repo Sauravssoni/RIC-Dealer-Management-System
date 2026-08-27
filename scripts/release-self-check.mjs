@@ -57,6 +57,9 @@ const assertions = [
   ["app/dashboard/EvaluatorConsole.tsx", "RED · DUPLICATE"],
   ["app/dashboard/EvaluatorConsole.tsx", "No autonomous expenditure"],
   ["app/dashboard/EvaluatorConsole.tsx", "FarmGraph AI interoperability"],
+  ["app/dashboard/EvaluatorConsole.tsx", "LEGAL-SYSTEM DESIGN"],
+  ["app/dashboard/EvaluatorConsole.tsx", "Nyaya Saarthi"],
+  ["app/dashboard/EvaluatorConsole.tsx", "Deal Saarthi"],
   ["app/dashboard/submission-polish.css", "FUNCTIONAL PROTOTYPE"],
   ["app/onboarding/page.tsx", "Payment Identity Lock"],
   ["app/onboarding/page.tsx", "RajKisan licence"],
@@ -100,4 +103,4 @@ if (failures) {
   console.error(`\nRAJ-AGRIPAY release self-check FAILED (${failures})`);
   process.exit(1);
 }
-console.log("\nRAJ-AGRIPAY release self-check PASSED - root-to-operations UX, evaluator scenarios, prototype truth boundary, dealer lifecycle, claim truth, impact, statewide vision, contracts, migration, handover and authority invariants are present.");
+console.log("\nRAJ-AGRIPAY release self-check PASSED - root-to-operations UX, evaluator scenarios, legal-governance assurance, prototype truth boundary, dealer lifecycle, claim truth, impact, statewide vision, contracts, migration, handover and authority invariants are present.");
