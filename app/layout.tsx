@@ -12,7 +12,8 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>{children}<script defer src={"/ric-voice.js"} data-ric-project="agripay" />
+      </body>
     </html>
   );
 }
