@@ -116,7 +116,7 @@
    '<small>Consent-based speech input. Oracle Whisper returns an UNVERIFIED transcript; edit it before running any action. No Government decision occurs automatically.</small>'+
    '<label for="ricv-lang">Spoken language</label><select id="ricv-lang"></select>'+
    '<label class="consent"><input id="ricv-consent" type="checkbox"><span>I agree to send one short audio clip to Syntheon’s Oracle ASR for temporary transcription.</span></label>'+
-   '<div class="controls"><button id="ricv-record" class="primary">● Record</button><button id="ricv-stop" disabled>■ Stop</button><button id="ricv-refresh">Check Oracle</button></div>'+
+   '<div class="controls"><button id="ricv-record" class="primary">● Record</button><button id="ricv-stop" disabled>■ Stop</button><button id="ricv-refresh">Check Oracle</button><label for="ricv-file" style="cursor:pointer;border:1px solid #345775;border-radius:9px;padding:9px;background:#edf5fa">Choose audio clip</label><input id="ricv-file" type="file" accept="audio/*,.wav,.mp3,.m4a,.webm,.ogg" style="max-width:100%;font-size:11px" aria-label="Upload an existing audio clip"></div>'+
    '<label for="ricv-transcript">Review or correct transcript</label><textarea id="ricv-transcript" placeholder="Your editable transcript appears here. You can also type a command."></textarea>'+
    '<label for="ricv-action">Approved dashboard workflow</label><select id="ricv-action"></select>'+
    '<div class="controls"><button id="ricv-run" class="primary">Run selected native workflow</button><button id="ricv-close">Close</button></div>'+
@@ -160,13 +160,13 @@
       clipTimer=setTimeout(stop,14000);
     }catch(e){release();state(false);setStatus(e.name==="NotAllowedError"?"Microphone denied. Enable it in browser site settings and retry.":"Microphone error: "+String(e.name||e.message||e))}
   }
-  function stop(){if(recorder&&recorder.state==="recording"){setStatus("Preparing audio…");recorder.stop()}else{release();state(false)}}
+  function stop(){if(recorder&&recorder.state==="recording"){setStatus("Preparing audio…");try{recorder.requestData()}catch{}recorder.stop()}else{release();state(false)}}
   async function transcribe(blob){
     if(blob.size<200){setStatus("No audio received. Please record again.");return;}
     if(blob.size>2500000){setStatus("Clip exceeded Oracle's 2.5 MB maximum. Please record a shorter clip.");return;}
     const lang=lng.value;
-    const mime=blob.type.includes("mp4")?"audio/mp4":blob.type.includes("ogg")?"audio/ogg":"audio/webm";
-    const ext=mime==="audio/mp4"?"m4a":mime==="audio/ogg"?"ogg":"webm";
+    const mime=blob.type.includes("mp4")?"audio/mp4":blob.type.includes("ogg")?"audio/ogg":blob.type.includes("mpeg")?"audio/mpeg":blob.type.includes("wav")?"audio/wav":"audio/webm";
+    const ext=mime==="audio/mp4"?"m4a":mime==="audio/ogg"?"ogg":mime==="audio/wav"?"wav":mime==="audio/mpeg"?"mp3":"webm";
     const fd=new FormData();fd.append("file",blob,"ric_voice."+ext);
     setStatus("Transcribing through Oracle Whisper… audio is not saved by this app.");
     const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),150000);
@@ -211,6 +211,7 @@
     get("ricv-record").addEventListener("click",record);
     get("ricv-stop").addEventListener("click",stop);
     get("ricv-refresh").addEventListener("click",checkCapability);
+    get("ricv-file").addEventListener("change",async()=>{const file=get("ricv-file").files?.[0];if(!file)return;if(!get("ricv-consent").checked){setStatus("Explicit consent required before uploading audio.");return;}if(!/^audio\//.test(file.type) && !/\.(wav|mp3|m4a|webm|ogg)$/i.test(file.name)){setStatus("Unsupported audio type.");return;}await transcribe(file);});
     get("ricv-run").addEventListener("click",run);
     document.addEventListener("visibilitychange",()=>{if(document.hidden&&active)stop()});
     window.addEventListener("pagehide",release);
