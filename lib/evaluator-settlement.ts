@@ -1,0 +1,17 @@
+import {createHash} from "node:crypto";
+const fixtures={clean:{id:"AGR-26-10482",district:"Jaipur",amount:184260,invoice:"DEMO-INV-8821",scheme:"Certified Seed Support",rule:"v3.4",route:"IFMS 3.0 · State scheme",duplicate:false,bankChanged:false},duplicate:{id:"AGR-26-10481",district:"Jodhpur",amount:311400,invoice:"DEMO-INV-44902",scheme:"Input Assistance Pilot",rule:"v2.1",route:"IFMS 3.0 · State scheme",duplicate:true,bankChanged:false},bank:{id:"AGR-26-10479",district:"Udaipur",amount:238800,invoice:"DEMO-INV-119",scheme:"Micronutrient Support",rule:"v1.8",route:"IFMS 3.0 · State scheme",duplicate:false,bankChanged:true}} as const;
+type Scenario=keyof typeof fixtures;
+type Event={id:string;action:string;at:string;previous:string;hash:string};
+export type State={scenario:Scenario;claim:typeof fixtures[Scenario];status:string;bankReview:"NOT_REQUIRED"|"LOCKED"|"MAKER_REVIEWED"|"REVERIFIED";checks:{name:string;passed:boolean}[];events:Event[];ack:{reference:string;amount:number;source:"SYNTHETIC_TREASURY_FIXTURE"}|null;reconciled:boolean};
+export function initial(scenario:string):State{if(!Object.hasOwn(fixtures,scenario))throw Error("UNKNOWN_SCENARIO");const key=scenario as Scenario;return {scenario:key,claim:fixtures[key],status:"RECEIVED",bankReview:fixtures[key].bankChanged?"LOCKED":"NOT_REQUIRED",checks:[],events:[],ack:null,reconciled:false};}
+function checks(s:State){return [{name:"Dealer licence fixture",passed:true},{name:"Scheme membership fixture",passed:true},{name:"Invoice reference present",passed:s.claim.invoice.startsWith("DEMO-INV-")},{name:"Invoice amount positive",passed:s.claim.amount>0},{name:"Scheme version present",passed:!!s.claim.rule},{name:"Delivery evidence fixture",passed:true},{name:"Invoice tax evidence fixture",passed:true},{name:"Period evidence fixture",passed:true},{name:"Quantity/rate evidence fixture",passed:true},{name:"Finance route identified",passed:!!s.claim.route},{name:"Cross-scheme duplicate check",passed:!s.claim.duplicate},{name:"Payment identity lock",passed:["NOT_REQUIRED","REVERIFIED"].includes(s.bankReview)}];}
+export function apply(state:State,action:string,id:string):State{const s=structuredClone(state);function requireState(...states:string[]){if(!states.includes(s.status))throw Error("INVALID_TRANSITION");}
+switch(action){
+case "VALIDATE":requireState("RECEIVED","EXCEPTION");s.checks=checks(s);s.status=s.checks.every(c=>c.passed)?"READY_FOR_APPROVAL":"EXCEPTION";break;
+case "BANK_MAKER":requireState("EXCEPTION");if(s.bankReview!=="LOCKED")throw Error("BANK_CHANGE_REQUIRED");s.bankReview="MAKER_REVIEWED";break;
+case "BANK_CHECKER":requireState("EXCEPTION");if(s.bankReview!=="MAKER_REVIEWED")throw Error("MAKER_REVIEW_REQUIRED");s.bankReview="REVERIFIED";break;
+case "APPROVE":requireState("READY_FOR_APPROVAL");if(!checks(s).every(c=>c.passed))throw Error("CLAIM_CHECKS_FAILED");s.status="FINANCE_PACKET_DEMO";break;
+case "ACKNOWLEDGE":requireState("FINANCE_PACKET_DEMO");s.ack={reference:"DEMO-ACK-"+id.slice(0,8).toUpperCase(),amount:s.claim.amount,source:"SYNTHETIC_TREASURY_FIXTURE"};s.status="ACKNOWLEDGED_DEMO";break;
+case "RECONCILE":requireState("ACKNOWLEDGED_DEMO");if(!s.ack||s.ack.amount!==s.claim.amount)throw Error("RECONCILIATION_MISMATCH");s.reconciled=true;s.status="RECONCILED_DEMO";break;
+default:throw Error("UNKNOWN_ACTION")}
+const e={id,action,at:new Date().toISOString(),previous:s.events.at(-1)?.hash||"GENESIS"};s.events.push({...e,hash:createHash("sha256").update(JSON.stringify(e)).digest("hex")});return s;}
