@@ -66,7 +66,7 @@ export default function Dashboard(){
   return <div className="wbApp">
     <aside className="wbRail">
       <div className="wbBrand"><div className="wbStateMark">राज</div><div><b>RAJ-AGRIPAY</b><span>Agriculture Payment Control Plane</span></div></div>
-      <div className="wbPrototype"><i/><div><b>FUNCTIONAL PROTOTYPE</b><span>Evaluation sandbox · pilot-ready architecture</span></div></div>
+      <div className="wbPrototype"><i/><div><b>FUNCTIONAL PROTOTYPE</b><span>Evaluation sandbox · pilot-ready architecture</span></div></div><Link href="/settlement-proof" style={{display:"block",margin:"12px 0",padding:"12px",borderRadius:8,background:"#dbeaf8",color:"#183453",fontWeight:800}}>Open saved claim workflow →</Link>
       <nav className="wbNav">{nav.map(n=><button key={n.view} className={view===n.view?"active":""} onClick={()=>setView(n.view)}><span className="wbNavGlyph">{n.glyph}</span><span><b>{n.label}</b><small>{n.caption}</small></span></button>)}</nav>
       <div className="wbJourneys"><span>DEALER JOURNEYS</span><Link href="/onboarding">＋ Onboard / Renew</Link><Link href="/intake">▤ Invoice Intake</Link><Link href="/impact">↗ Impact & Payback</Link><Link href="/vision">◎ Statewide Vision</Link></div>
       <div className="wbRailFoot"><span>CONTROL PRINCIPLE</span><b>Evidence before expenditure.</b><p>IFMS / PFMS / Treasury remain authoritative. AI never approves public expenditure.</p></div>
